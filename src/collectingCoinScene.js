@@ -21,39 +21,45 @@ export default class collectingCoinScene extends Phaser.Scene {
 		this.load.image('coin','images/coin.png')
 		this.load.image('duri','images/duri.png')
 		this.load.image('sky','images/sky.png')
-		this.load.spritesheet('player','images/player.png',{frameWidth:36, frameHeight:46.5})
+		this.load.image('rumput','images/bush1.png')
+		this.load.image('pohon','images/treePine.png')
+		this.load.spritesheet('player','images/player.png',{frameWidth:36, frameHeight:46})
 	}
 
 	create() {
 		//PLATFORM
 		this.add.image(400,300,'sky')
 		this.platform=this.physics.add.staticGroup()
-		this.platform.create(400,450,'ground')
-		this.platform.create(617,450,'ground')
-		this.platform.create(834,450,'ground')
-		this.platform.create(100,320,'ground')
-		this.platform.create(317,320,'ground')
-		this.platform.create(750,200,'ground')
-		this.platform.create(533,200,'ground')
-		this.platform.create(175,200,'ground')
-		this.platform.create(400,90,'ground')
-		this.platform.create(400,1150,'ground1') .setScale(17) .refreshBody();
+		this.platform.create(400,450,'ground').setOffset(2,2)
+		this.platform.create(617,450,'ground').setOffset(2,2)
+		this.platform.create(834,450,'ground').setOffset(2,2)
+		this.platform.create(100,320,'ground').setOffset(2,2)
+		this.platform.create(317,320,'ground').setOffset(2,2)
+		this.platform.create(750,200,'ground').setOffset(2,2)
+		this.platform.create(533,200,'ground').setOffset(2,2)
+		this.platform.create(175,200,'ground').setOffset(2,2)
+		this.platform.create(400,90,'ground').setOffset(2,2)
+		this.platform.create(400,1150,'ground1').setOffset(2,2).setScale(17).refreshBody();
 		//PLAYER
-		this.player = this.physics.add.sprite(100,450,'player')
+		this.player = this.physics.add.sprite(750,540,'player')
 		this.player.setCollideWorldBounds(true)
 		this.physics.add.collider(this.player,this.platform)
 		this.player.setVelocity(200,200)
 		this.player.setVelocityX(200)
 		this.player.setVelocityY(200)
+		.setOffset(-1,-5)
 		//COIN
 		this.coin= this.physics.add.group()
-		this.coin.create(600,450,'coin')
-		this.coin.create(700,350,'coin')
-		this.coin.create(50,200,'coin')
-		this.coin.create(700,100,'coin')
-		this.coin.create(700,350,'coin')
-		this.coin.create(150,100,'coin')
-		this.coin.create(400,0,'coin')
+		this.coin.create(600,450,'coin').setOffset(-3,-3)
+		this.coin.create(700,350,'coin').setOffset(-3,-3)
+		this.coin.create(50,200,'coin').setOffset(-3,-3)
+		this.coin.create(700,100,'coin').setOffset(-3,-3)
+		this.coin.create(150,100,'coin').setOffset(-3,-3)
+		this.coin.create(400,0,'coin').setOffset(-3,-3)
+		this.coin.create(300,200,'coin').setOffset(-3,-3)
+		this.coin.create(400,300,'coin').setOffset(-3,-3)
+		this.coin.create(500,100,'coin').setOffset(-3,-3)
+		this.coin.create(350,450,'coin').setOffset(-3,-3)
 		this.physics.add.collider(this.coin,this.platform)
 		this.coin.children.iterate(function (child){
 			//@ts-ignore
@@ -75,7 +81,7 @@ export default class collectingCoinScene extends Phaser.Scene {
 			frameRate:10,
 			repeat:-1
 		});
-		//MENGAMBIL COIN DAN MENAMBAR SCORE
+		//OVERLAPS COIN
 		this.physics.add.overlap(
 			this.player,
 			this.coin,
@@ -92,7 +98,46 @@ export default class collectingCoinScene extends Phaser.Scene {
 		this.duri.create(630,100,'duri')
 		this.duri.create(550,300,'duri')
 		this.duri.create(150,200,'duri')
+		this.duri.create(450,450,'duri')
+		this.duri.create(220,100,'duri')
 		this.physics.add.collider(this.duri,this.platform)
+		//OVERLAPS DURI TAJAM
+		this.physics.add.overlap(
+			this.duri,
+			this.player,
+			this.gameOver,
+			null,
+			this
+		)
+		//POHONNNNN
+		this.pohon=this.physics.add.group()
+		this.pohon.create(226,200,'pohon')
+		this.pohon.create(190,100,'pohon')
+		this.pohon.create(300,450,'pohon')
+		this.pohon.create(650,450,'pohon')
+		this.pohon.create(666,250,'pohon')
+		this.pohon.create(600,100,'pohon')
+		this.pohon.create(380,0,'pohon')
+		this.pohon.create(100,450,'pohon')
+		this.pohon.create(120,450,'pohon')
+		this.physics.add.collider(this.pohon,this.platform)
+
+		//RUMPUTTT
+		this.rumput=this.physics.add.group()
+		this.rumput.create(250,200,'rumput')
+		this.rumput.create(220,200,'rumput')
+		this.rumput.create(450,400,'rumput')
+		this.rumput.create(200,450,'rumput')
+		this.rumput.create(250,450,'rumput')
+		this.rumput.create(450,0,'rumput')
+		this.rumput.create(350,0,'rumput')
+		this.rumput.create(750,100,'rumput')
+		this.rumput.create(550,100,'rumput')
+		this.rumput.create(100,100,'rumput')
+		this.rumput.create(90,450,'rumput')
+		this.rumput.create(140,450,'rumput')
+		this.physics.add.collider(this.rumput,this.platform)
+
 	}
 
 	update(){
@@ -117,7 +162,7 @@ export default class collectingCoinScene extends Phaser.Scene {
 		//(SCORE
 		if (this.score >= 100){
 			this.physics.pause()
-			this.add.text(300,300,'KAMU MENANG',{
+			this.add.text(250,300,'KAMU MENANG',{
 				fontSize: '48px',
 				fill: 'yellow'
 			})
@@ -133,8 +178,8 @@ export default class collectingCoinScene extends Phaser.Scene {
 
 	gameOver(player,duri){
 		this.physics.pause()
-		this.add.text(300,300,'SELAMAT ANDA KALAH',{
-			fontSize: '48px', fill:'yellow'})
+		this.add.text(155,300,'SELAMAT ANDA KALAH',{
+			fontSize: '48px', fill:'red'})
 	}
 
 }
