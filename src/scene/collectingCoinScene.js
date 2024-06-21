@@ -163,7 +163,7 @@ export default class collectingCoinScene extends Phaser.Scene {
 		//(SCORE
 		if (this.score >= 100){
 			this.physics.pause()
-			this.add.text(250,300,'KAMU MENANG',{
+			this.add.text(250,300,'KAMU MENANG...',{
 				fontSize: '48px',
 				fill: 'yellow'
 			})
