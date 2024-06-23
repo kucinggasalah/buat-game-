@@ -5,19 +5,26 @@ export default class gameOverScene extends Phaser.Scene {
     }
 
     init(data){
+        this.replayButton = undefined
         this.score = data.score
     }
 
     preload(){
-        this.load.image('background', 'images/bg_layer1.png')
-        this.load.image('gameover', 'images/gameover.png')
+        this.load.image('background', 'images/sky.png')
+        this.load.image('gameover', 'images/gameover1.png')
+        this.load.image('replay','images/replay.png')
     }
 
     create(){
-        this.add.image(200, 320, 'background')
-        this.add.image(200, 200, 'gameover')
-        this.add.text(100, 300, 'score: '+ this.score,{
-            fontSize: '32px', fill: 'black'})
+        this.add.image(400, 300, 'background')
+        this.add.image(400, 220, 'gameover')
+        this.replayButton = this.add.image(400,360,'replay') .setInteractive() .setScale(0.5)
+        this.replayButton.once('pointerup', ()=> {
+            this.scene.start('collecting-coin-scene')
+        },this)
+        this.add.text(250,280,'SCORE:'+ this.score, {
+            fontSize: '32px', fill: 'green', backgroundColor: 'black', fontStyle:'bold'
+        })
     }
 
 }

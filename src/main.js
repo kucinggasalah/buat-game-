@@ -1,6 +1,9 @@
-import Phaser from 'phaser'
+import Phaser from "phaser" 
 
-import collectingCoinScene from './collectingCoinScene'
+import collectingCoinScene from "./scene/collectingCoinScene"
+import gameOverScene from "./scene/gameOverScene"
+import gameStartScene from "./scene/gameStartScene"
+
 
 const config = {
 	type: Phaser.AUTO,
@@ -14,7 +17,8 @@ const config = {
 			debug: false
 		},
 	},
-	scene: [collectingCoinScene],
+	scene: [gameStartScene, collectingCoinScene, gameOverScene],
+
 }
 
 export default new Phaser.Game(config)

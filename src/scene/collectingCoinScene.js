@@ -8,10 +8,10 @@ export default class collectingCoinScene extends Phaser.Scene {
 		this.platform= undefined
 		this.player= undefined
 		this.coin= undefined
-		this.cursor= undefined
-		this.scoretext= undefined
-		this.score= 0 
+		this.cursor= undefined 
 		this.duri= undefined
+		this.scoretext= undefined
+		this.score= 0
 	}
 
 	preload() {
@@ -88,7 +88,7 @@ export default class collectingCoinScene extends Phaser.Scene {
 			null,
 			this
 		)
-		//TEKS SKORE
+		//TEKS SKOR
 		this.scoreText= this.add.text(16,16,'score:0',{
 			fontSize:'32px',fill:'yellow'
 		});
@@ -141,7 +141,7 @@ export default class collectingCoinScene extends Phaser.Scene {
 
 	}
 
-	update(){
+	update(time){
 		//PLAYER MOVEMENT
 		if (this.cursor.left.isDown){
 			this.player.setVelocity(-200,200)
@@ -163,23 +163,25 @@ export default class collectingCoinScene extends Phaser.Scene {
 		//(SCORE
 		if (this.score >= 100){
 			this.physics.pause()
-			this.add.text(250,300,'KAMU MENANG...',{
+			this.add.text(250,300,'KAMU MENANG',{
 				fontSize: '48px',
 				fill: 'yellow'
 			})
 		}
-
+		this.scoreText.setText('Score : '+ this.score);
 	}
 
+	
 	collectingCoin(player, coin){
 		coin.destroy()
 		this.score += 10;
-		this.scoreText.setText('Score : '+this.score);
+		
 	}
 
 	gameOver(player,duri){
 		this.physics.pause()
-		this.add.text(155,300,'SELAMAT ANDA KALAH',{
-			fontSize: '48px', fill:'red'})
+		this.scene.start(`over-scene`)
 	}
+
+	
 }
