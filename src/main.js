@@ -3,6 +3,7 @@ import Phaser from "phaser"
 import collectingCoinScene from "./scene/collectingCoinScene"
 import gameOverScene from "./scene/gameOverScene"
 import gameStartScene from "./scene/gameStartScene"
+import gameWinScene from "./scene/gameWinScene"
 
 
 const config = {
@@ -17,7 +18,8 @@ const config = {
 			debug: false
 		},
 	},
-	scene: [gameStartScene, collectingCoinScene, gameOverScene],
+	scene: [gameStartScene, collectingCoinScene, gameOverScene, gameWinScene]
+	
 
 }
 
