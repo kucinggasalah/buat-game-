@@ -3,6 +3,9 @@ export default class gameWinScene extends Phaser.Scene {
     constructor(){
         super('win-scene')
     }
+    init(data){
+        this.score = data.score
+    }
 
     preload(){
         this.load.image('background','images/background3.png')
@@ -23,11 +26,14 @@ export default class gameWinScene extends Phaser.Scene {
             fontStyle:'bold',
             backgroundColor: 'orange'
         }) 
-        this.add.text(25,100,'    ANDA MENANG', {
+        this.add.text(180,100,'ANDA MENANG', {
             fontSize: '65px',
             fill: 'white', 
             fontStyle:'bold',
             
         }) 
+        this.add.text(315,200,'SCORE:'+ this.score, {
+            fontSize: '32px', fill: 'white', fontStyle:'bold'
+        })
     }
 }

@@ -12,6 +12,8 @@ export default class collectingCoinScene extends Phaser.Scene {
 		this.duri= undefined
 		this.scoretext= undefined
 		this.score= 0
+		
+		
 	}
 
 	preload() {
@@ -23,6 +25,7 @@ export default class collectingCoinScene extends Phaser.Scene {
 		this.load.image('rumput','images/bush1.png')
 		this.load.image('pohon','images/treePine.png')
 		this.load.spritesheet('player','images/player.png',{frameWidth:36, frameHeight:46})
+		this.load.image('palu','images/palu.png')
 	}
 
 	create() {
@@ -92,6 +95,13 @@ export default class collectingCoinScene extends Phaser.Scene {
 		this.scoreText= this.add.text(16,16,'score:0',{
 			fontSize:'32px',fill:'yellow'
 		});
+		//TEKS LEVEL
+		this.add.text(19,50,'LEVEL 1', {
+            fontSize: '19px',
+            fill: 'black', 
+            fontStyle:'bold',
+            backgroundColor: 'white'
+        }) 
 		//DURI TAJAM
 		this.duri = this.physics.add.group()
 		this.duri.create(630,100,'duri')
@@ -163,10 +173,7 @@ export default class collectingCoinScene extends Phaser.Scene {
 		//(SCORE
 		if (this.score >= 100){
 			this.physics.pause()
-			this.add.text(250,300,'KAMU MENANG',{
-				fontSize: '48px',
-				fill: 'yellow'
-			})
+			this.scene.start('win-scene',{score: this.score})
 		}
 		this.scoreText.setText('Score : '+ this.score);
 	}
@@ -180,7 +187,7 @@ export default class collectingCoinScene extends Phaser.Scene {
 
 	gameOver(player,duri){
 		this.physics.pause()
-		this.scene.start(`over-scene`)
+		this.scene.start(`over-scene`,{score: this.score})
 	}
 
 	

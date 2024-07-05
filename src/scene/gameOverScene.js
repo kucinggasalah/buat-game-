@@ -23,7 +23,7 @@ export default class gameOverScene extends Phaser.Scene {
         this.replayButton.once('pointerup', ()=> {
             this.scene.start('collecting-coin-scene')
         },this)
-        this.add.text(250,280,'SCORE:'+ this.score, {
+        this.add.text(315,280,'SCORE:'+ this.score, {
             fontSize: '32px', fill: 'green', backgroundColor: 'black', fontStyle:'bold'
         })
     }

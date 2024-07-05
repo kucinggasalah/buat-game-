@@ -18,8 +18,8 @@ const config = {
 			debug: false
 		},
 	},
-	scene: [gameStartScene, collectingCoinScene, gameOverScene, gameWinScene]
-	
+	// scene: [gameStartScene, collectingCoinScene, gameOverScene, gameWinScene]
+	scene: [gameWinScene]
 
 }
 
