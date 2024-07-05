@@ -12,11 +12,13 @@ export default class collectingCoinScene extends Phaser.Scene {
 		this.duri= undefined
 		this.scoretext= undefined
 		this.score= 0
-		
+		this.backsound = undefined
+		this.jumpSound = undefined
 		
 	}
 
 	preload() {
+		//IMAGE
 		this.load.image('ground','images/platform.png')
 		this.load.image('ground1','images/platformats1.png')
 		this.load.image('coin','images/coin.png')
@@ -26,6 +28,10 @@ export default class collectingCoinScene extends Phaser.Scene {
 		this.load.image('pohon','images/treePine.png')
 		this.load.spritesheet('player','images/player.png',{frameWidth:36, frameHeight:46})
 		this.load.image('palu','images/palu.png')
+		//SOUND
+		this.load.audio('backsound','sfx/backsound.ogg')
+		this.load.audio('mati','sfx/deadsound.mp3')
+		this.load.audio('jump','sfx/jumpsound.mp3')
 	}
 
 	create() {
@@ -147,8 +153,20 @@ export default class collectingCoinScene extends Phaser.Scene {
 		this.rumput.create(140,450,'rumput')
 		this.physics.add.collider(this.rumput,this.platform)
 
-		
+		//SOUND
+		this.backsound = this.sound.add('backsound')
+		var soundConfig={
+			loop: true,
+			volume: 0.3,
+		}
+		this.backsound.play(soundConfig)
 
+		this.jumpSound = this.sound.add('jump')
+		var jumpSoundConfig ={
+			volume: 0.0,
+		}
+		this.jumpSound.play(jumpSoundConfig)
+		
 	}
 
 	update(time){
@@ -169,7 +187,9 @@ export default class collectingCoinScene extends Phaser.Scene {
 		if (this.cursor.up.isDown){
 			this.player.setVelocity(0,-200)
 			this.player.anims.play('turn')
+			this.sound.play('jump')
 		}
+
 		//(SCORE
 		if (this.score >= 100){
 			this.physics.pause()
@@ -188,6 +208,7 @@ export default class collectingCoinScene extends Phaser.Scene {
 	gameOver(player,duri){
 		this.physics.pause()
 		this.scene.start(`over-scene`,{score: this.score})
+		this.sound.play('mati')
 	}
 
 	
